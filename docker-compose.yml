@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mongo:
+    build: . # Tells Docker Compose to build the image from the Dockerfile in the current directory
+    container_name: my-mongo-db-compose
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db # Persist data
+      # The init script is already part of the image built by the Dockerfile
+
+volumes:
+  mongo_data: # Defines a named volume for data persistence
+
+
+# docker-compose up -d --build # Build (if needed) and start in detached mode
+# docker-compose down # Stop the container
+# docker-compose up -d # Start in detached mode, reusing existing volume
+
+# docker exec -it my-mongo-db-compose mongosh -u myuser -p mypassword --authenticationDatabase admin mydatabase
